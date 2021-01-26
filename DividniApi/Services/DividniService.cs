@@ -12,14 +12,11 @@ namespace DividniApi.Services
             return Directory.GetCurrentDirectory().Substring(0, Directory.GetCurrentDirectory().Length - 10);
         }
 
-        public void createAssessmentFolder(string assessmentName)
+        public void createAssessmentFolder()
         {
             //Create a subfolder called Assessments (may exist already)
             var folderPath = getDirectory() + "Assessments"; //Replace 'DividniApi' with 'Assessments'
             System.IO.Directory.CreateDirectory(folderPath);
-            var assessmentPath = folderPath + "\\" + assessmentName;
-            //Create a folder specifically for this assessment
-            System.IO.Directory.CreateDirectory(assessmentPath);
         }
 
         public List<string> executeCommand(string command)
@@ -64,13 +61,11 @@ namespace DividniApi.Services
 
         public byte[] generateStandard(string assessmentName, string questionIds, int versions, byte[] data)
         {
-            createAssessmentFolder(assessmentName);
+            createAssessmentFolder();
             //Create zip file from data
             System.IO.File.WriteAllBytes(getDirectory() + "\\Assessments\\" + assessmentName + "Data.zip", data); 
-            //Extract zip file to assessment folder
-
-            //file is in assessments folder, not specific folder
-
+            //Extract zip file contents to Assessments
+            executeCommand("/c cd .. & cd Assessments & tar xf " + assessmentName + "Data.zip " + assessmentName);
             //Compile all of the questions
             executeCommand("/c cd .. & cd Assessments\\" + assessmentName + " & csc -t:library -lib:\"C:\\Program Files\\Dividni.com\\Dividni\" -r:Utilities.Courses.dll -out:QHelper.dll " + questionIds);
             //Generate assessment
@@ -85,11 +80,11 @@ namespace DividniApi.Services
 
         public byte[] generateLMS(string assessmentName, string questionIds, int versions, string type, byte[] data)
         {
-            createAssessmentFolder(assessmentName);
+            createAssessmentFolder();
             //Create zip file from data
             System.IO.File.WriteAllBytes(getDirectory() + "\\Assessments\\" + assessmentName + "Data.zip", data); 
-            //Extract zip file to assessment folder
-
+            //Extract zip file contents to Assessments
+            executeCommand("/c cd .. & cd Assessments & tar xf " + assessmentName + "Data.zip " + assessmentName);
             //Generate the assessment, based on type
             if (type == "moodle")
             {
