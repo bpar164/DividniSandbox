@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DividniApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class DividniController : ControllerBase
     {
