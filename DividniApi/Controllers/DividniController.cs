@@ -19,9 +19,9 @@ namespace DividniApi.Controllers
 
         // POST: api/CompileQuestion
         [HttpPost]
-        public string CompileQuestion(string question) //Task<ActionResult>
+        public string CompileQuestion(string name, string question) 
         {
-            return "Success";
+            return _service.compileQuestion(name, question);
         }
     }
 }

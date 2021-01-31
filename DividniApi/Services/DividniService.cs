@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text.Json;
 
 namespace DividniApi.Services
 {
@@ -29,22 +30,23 @@ namespace DividniApi.Services
             return output;
         }
 
-        public string compileQuestion(string question)
+        public string compileQuestion(string name, string question)
         {
             //Create a subfolder called Testing (may exist already)
             var folderPath = getDirectory() + "Testing"; //Replace 'DividniApi' with 'Testing'
             System.IO.Directory.CreateDirectory(folderPath);
-            //Create a file from the code
-
-            //System.IO.File.WriteAllBytes(getDirectory() + "\\Assessments\\" + apiObject.assessmentName + "Data.zip", apiObject.data);
-            
-            /*
-            var result = executeCommand("/c cd .. & cd Assessments\\" + assessment.Name + " & csc -t:library -lib:\"C:\\Program Files\\Dividni.com\\Dividni\" -r:Utilities.Courses.dll -out:QHelper.dll " + questionIds);
-                    foreach (var line in result) {
-                        Console.WriteLine(line);
-                    }
-            */
-            
+            //Create a subfolder for this question
+            var questionPath = folderPath + "\\" + name;
+            System.IO.Directory.CreateDirectory(questionPath);
+            //Create a file for the code
+            System.IO.File.WriteAllText(questionPath + "\\" + name + ".cs", question);//JsonSerializer.Deserialize<string>(question))
+            var result = executeCommand("/c cd .. & cd Testing\\" + name + " & csc -t:library -lib:\"C:\\Program Files\\Dividni.com\\Dividni\" -r:Utilities.Courses.dll -out:QHelper.dll " + name + ".cs");
+            foreach (var line in result)
+            {
+                if (line.Contains("error")){
+                    Console.WriteLine(line);
+                }   
+            }
             //Delete the Testing folder and any subdirectories
             System.IO.Directory.Delete(getDirectory() + "Testing", true);
             //Return the result
