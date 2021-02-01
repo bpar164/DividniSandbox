@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using DividniApi.Services;
+using Microsoft.AspNetCore.Cors;
 
 namespace DividniApi.Controllers
 {
@@ -18,10 +19,11 @@ namespace DividniApi.Controllers
         }
 
         // POST: api/CompileQuestion
+        [EnableCors("DividniPolicy")]
         [HttpPost]
         public string CompileQuestion(string name, string question) 
         {
-            return _service.compileQuestion(name, question);
+            return _service.compileQuestion(Request.Form["name"], Request.Form["question"]);
         }
     }
 }
