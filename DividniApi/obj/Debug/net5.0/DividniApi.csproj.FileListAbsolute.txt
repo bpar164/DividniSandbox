@@ -111,3 +111,8 @@ C:\Users\benpa\DividniSandbox\DividniApi\obj\Debug\net5.0\DividniApi.dll
 C:\Users\benpa\DividniSandbox\DividniApi\obj\Debug\net5.0\ref\DividniApi.dll
 C:\Users\benpa\DividniSandbox\DividniApi\obj\Debug\net5.0\DividniApi.pdb
 C:\Users\benpa\DividniSandbox\DividniApi\obj\Debug\net5.0\DividniApi.genruntimeconfig.cache
+C:\Users\benpa\DividniSandbox\DividniApi\bin\Debug\net5.0\System.Web.Cors.dll
+C:\Users\benpa\DividniSandbox\DividniApi\bin\Debug\net5.0\System.Net.Http.Formatting.dll
+C:\Users\benpa\DividniSandbox\DividniApi\bin\Debug\net5.0\System.Web.Http.dll
+C:\Users\benpa\DividniSandbox\DividniApi\bin\Debug\net5.0\System.Web.Http.Cors.dll
+C:\Users\benpa\DividniSandbox\DividniApi\bin\Debug\net5.0\Newtonsoft.Json.Bson.dll
